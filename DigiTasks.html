@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>DigiTasks - Login/Register</title>
+    <style>
+        body {
+            font-family: 'Press Start 2P', sans-serif;
+            background-color: #292929;
+            color: #fff;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            overflow-y: hidden;
+            overflow-x: hidden;
+            flex-direction: row;
+        }
+
+        .left-section {
+            width: 35%;
+            background-color: #f4a261;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 30px;
+            box-sizing: border-box;
+            animation: slideInLeft 1s ease-out forwards;
+        }
+
+        .welcome-title {
+            font-size: 24px;
+            color: #292929;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: capitalize;
+            letter-spacing: 1px;
+        }
+
+        .logo-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .logo-item:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-item:hover .logo-text {
+            color: white;
+        }
+
+        .logo-circle {
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 25px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-circle i {
+            font-size: 40px;
+            color: #292929;
+        }
+
+        .logo-text {
+            color: #292929;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 400px;
+            padding: 0 20px;
+            margin-right: 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            text-align: left;
+        }
+
+        .right-section {
+            width: 65%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideInRight 1s ease-out forwards;
+        }
+
+        .container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+
+        .logo {
+            margin-bottom: 60px;
+        }
+
+        .logo h1 {
+            font-size: 36px;
+            margin: 0;
+            color: #f4a261;
+        }
+
+        .form-container {
+            background-color: #333;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 420px;
+            transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease;
+        }
+
+        .form-container.shrink {
+            transform: scale(1);
+        }
+
+        .form-container.expand {
+            transform: scale(1.05);
+        }
+
+        .form-container.active {
+            transform: scale(1);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        form {
+            display: none;
+            margin-bottom: 20px;
+            width: 100%;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        form.active {
+            display: block;
+            opacity: 1;
+        }
+
+        form.inactive {
+            opacity: 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-family: 'Press Start 2P', sans-serif;
+            font-size: 12px;
+        }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .password-container input {
+            padding-right: 40px;
+        }
+
+        .password-container .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #ccc;
+        }
+
+        button {
+            width: 100%;
+            background-color: #f4a261;
+            color: #000;
+            padding: 14px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', sans-serif;
+            font-size: 14px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-4px); 
+            background-color: #f1f1f1;
+            color: #f4a261;
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .toggle-form button {
+            display: none;
+        }
+
+        #loginForm.active ~ .toggle-form #show-register,
+        #registerForm.active ~ .toggle-form #show-login {
+            display: block;
+        }
+
+        #error-message {
+            display: none; /* Initially hidden */
+            opacity: 0; /* Fully transparent */
+            transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
+            color: red; /* Example styling */
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .error-message {
+            display: none; /* Initially hidden */
+            opacity: 0; /* Fully transparent */
+            transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
+            color: red; /* Example styling */
+            font-size: 14.5px;
+            margin-top: 10px;
+        }
+        
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Forgot Password Link */
+        .forgot-password {
+            font-size: 12px;
+            color: #f4a261;
+            text-decoration: none;
+            margin-top: 10px;
+            display: block;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #a8dadc; /* Change color on hover */
+        }
+
+        /* Forgot Password Form */
+        #forgotForm {
+            display: none;
+        }
+
+        #forgotForm.active {
+            display: block;
+            opacity: 1;
+        }
+
+        #forgotForm .inactive {
+            display: none;
+        }
+
+        #forgotForm input {
+            margin: 10px 0; /* Same margin as the login form input */
+            margin-bottom: -10px;
+        }
+
+        #forgotForm #sendVerificationButton {
+            width: 100%;
+            background-color: #f4a261;
+            color: #000;
+            padding: 14px;
+            margin: 10px 0; /* Same margin as the login form button */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', sans-serif;
+            font-size: 14px;
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #forgotForm #sendVerificationButton:hover {
+            transform: translateY(-4px);
+            background-color: #f1f1f1;
+            color: #f4a261;
+        }
+
+        /* Verification message */
+        #verification-message {
+            opacity: 0;
+            color: #31fc60;
+            font-size: 14px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            transition: opacity 0.5s ease-in-out, margin-top 0.5s ease; /* Smooth transition for opacity and margin-top */
+        }
+
+        #verification-message.active {
+            opacity: 1;
+            margin-top: 30px; /* Move message down when active */
+        }
+
+        #forgotForm.active #sendVerificationButton {
+            margin-top: 10px; /* Move button down when verification message is active */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="left-section">
+        <div class="welcome-title">Welcome to DigiTasks</div>
+        <div class="logo-item">
+            <div class="logo-circle">
+                <i class="fas fa-laptop-code"></i>
+            </div>
+            <div class="logo-text">Boost your productivity with top-tier annotation tools.</div>
+        </div>
+        <div class="logo-item">
+            <div class="logo-circle">
+                <i class="fas fa-wallet"></i>
+            </div>
+            <div class="logo-text">Earn more with efficient and high-quality image annotation services.</div>
+        </div>
+        <div class="logo-item">
+            <div class="logo-circle">
+                <i class="fas fa-hourglass-half"></i>
+            </div>
+            <div class="logo-text">Save time and increase efficiency with expert image annotation.</div>
+        </div>
+        <div class="logo-item">
+            <div class="logo-circle">
+                <i class="fas fa-users-cog"></i>
+            </div>
+            <div class="logo-text">Be part of a thriving network of skilled image annotators.</div>
+        </div>
+    </div>
+    
+    <div class="right-section">
+        <div class="container">
+            <div class="logo">
+                <h1>DigiTasks</h1>
+            </div>
+            <div class="form-container">
+                <form id="loginForm" class="active">
+                    <h2>Login</h2>
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                    <div class="password-container">
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+                        <i class="fas fa-eye eye-icon" id="toggleLoginPassword"></i>
+                    </div>
+                    <div id="error-message">Invalid email or password. Please try again.</div>
+                    <button type="submit">Login</button>
+                    <a href="javascript:void(0);" class="forgot-password" id="forgot-password-link">Forgot Password?</a>
+                </form>
+    
+                <form id="forgotForm" class="inactive">
+                    <h2>Forgot Password</h2>
+                    <input type="email" id="forgotEmail" placeholder="Email" required>
+                    <div id="verification-message">Verification Sent.</div>
+                    <button type="submit" id="sendVerificationButton">Submit</button>
+                    <button type="button" class="sign-in-btn" id="backToLoginBtn">Sign In</button> <!-- Sign In button -->
+                </form>
+    
+                <form id="registerForm">
+                    <h2>Register</h2>
+                    <input type="email" id="registerEmail" placeholder="Email" required>
+                    <div class="password-container">
+                        <input type="password" id="registerPassword" placeholder="Password" required>
+                        <i class="fas fa-eye eye-icon" id="toggleRegisterPassword"></i>
+                    </div>
+                    <div class="password-container">
+                        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                        <i class="fas fa-eye eye-icon" id="toggleConfirmPassword"></i>
+                    </div>
+                    <div id="register-error-message" class="error-message">Passwords do not match. Please try again.</div>
+                    <button type="submit">Register</button>
+                </form>
+                <div id="form-toggle" class="toggle-form">
+                    <button id="show-login">Sign In</button>
+                    <button id="show-register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const forgotForm = document.getElementById('forgotForm');
+        const formContainer = document.querySelector('.form-container');
+        const showLoginForm = document.getElementById('show-login');
+        const showRegisterForm = document.getElementById('show-register');
+        const loginPasswordInput = document.getElementById('loginPassword');
+        const registerPasswordInput = document.getElementById('registerPassword');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const forgotEmailInput = document.getElementById('forgotEmail');
+        const loginErrorMessage = document.getElementById('error-message');
+        const registerErrorMessage = document.getElementById('register-error-message');
+        const verificationMessage = document.getElementById('verification-message');
+        const toggleLoginPassword = document.getElementById('toggleLoginPassword');
+        const toggleRegisterPassword = document.getElementById('toggleRegisterPassword');
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        const forgotPasswordLink = document.getElementById('forgot-password-link');
+        const sendVerificationButton = document.getElementById('sendVerificationButton');
+        const backToLoginBtn = document.getElementById('backToLoginBtn');
+    
+        // Admin credentials
+        const adminEmail = "admin@digitasks.com";
+        const adminPassword = "Breaking99//";
+    
+        // Toggle between login and register forms
+        showLoginForm.addEventListener('click', () => {
+            loginForm.classList.add('active');
+            registerForm.classList.remove('active');
+            forgotForm.classList.remove('active');
+            formContainer.classList.remove('expand');
+        });
+    
+        showRegisterForm.addEventListener('click', () => {
+            registerForm.classList.add('active');
+            loginForm.classList.remove('active');
+            forgotForm.classList.remove('active');
+            formContainer.classList.add('expand');
+        });
+    
+        // Forgot password link actions
+        forgotPasswordLink.addEventListener('click', () => {
+            loginForm.classList.remove('active');
+            forgotForm.classList.add('active');
+        });
+    
+        backToLoginBtn.addEventListener('click', () => {
+            forgotForm.classList.remove('active');
+            loginForm.classList.add('active');
+        });
+    
+        // Show/hide password functionality
+        const togglePasswordVisibility = (input, toggleButton) => {
+            toggleButton.addEventListener('click', () => {
+                const type = input.type === 'password' ? 'text' : 'password';
+                input.type = type;
+            });
+        };
+    
+        togglePasswordVisibility(loginPasswordInput, toggleLoginPassword);
+        togglePasswordVisibility(registerPasswordInput, toggleRegisterPassword);
+        togglePasswordVisibility(confirmPasswordInput, toggleConfirmPassword);
+    
+        // Show login error message
+        function showLoginErrorMessage() {
+            loginErrorMessage.style.display = 'block'; // Make it visible
+            setTimeout(() => {
+                loginErrorMessage.style.opacity = '1'; // Fade in
+            }, 150); // Slight delay for smooth transition
+        }
+
+        // Hide login error message
+        function hideLoginErrorMessage() {
+            loginErrorMessage.style.opacity = '0'; // Fade out
+            setTimeout(() => {
+                loginErrorMessage.style.display = 'none'; // Fully hide after fade out
+            }, 300); // Match the transition duration in CSS
+        }
+
+        // Handle login
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = loginPasswordInput.value;
+
+            if (email === adminEmail && password === adminPassword) {
+                window.location.href = 'http://127.0.0.1:5500/DigiTasks-Dashboard.html'; // Replace with your actual dashboard URL
+            } else {
+                showLoginErrorMessage();
+            }
+        });
+
+        // Clear login error message on interaction
+        document.querySelectorAll('#loginForm input').forEach(input => {
+            input.addEventListener('input', () => {
+                hideLoginErrorMessage();
+            });
+        });
+
+        // Show register error message
+        function showRegisterErrorMessage() {
+            registerErrorMessage.style.display = 'block'; // Make it visible
+            setTimeout(() => {
+                registerErrorMessage.style.opacity = '1'; // Fade in
+            }, 150); // Slight delay for smooth transition
+        }
+
+        // Hide register error message
+        function hideregisterErrorMessage() {
+            registerErrorMessage.style.opacity = '0'; // Fade out
+            setTimeout(() => {
+                registerErrorMessage.style.display = 'none'; // Fully hide after fade out
+            }, 300); // Match the transition duration in CSS
+        }
+
+        // Handle registration
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+    
+            if (registerPasswordInput.value !== confirmPasswordInput.value) {
+                registerErrorMessage.style.display = 'block';
+                registerErrorMessage.style.opacity = '1';
+            } else {
+                registerErrorMessage.style.display = 'none';
+                registerForm.reset();
+    
+                // Switch to login form after registration
+                registerForm.classList.remove('active');
+                loginForm.classList.add('active');
+                formContainer.classList.remove('expand');
+            }
+        });
+    
+        // Clear register error message on interaction
+        document.querySelectorAll('#registerForm input').forEach(input => {
+            input.addEventListener('input', () => {
+                hideregisterErrorMessage();
+            });
+        });
+    
+        // Handle forgot password verification
+        sendVerificationButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            verificationMessage.classList.add('active');
+            sendVerificationButton.classList.add('active');
+            setTimeout(() => {
+                verificationMessage.classList.remove('active');
+                sendVerificationButton.classList.remove('active');
+            }, 3000);
+        });
+    </script>    
+
+    </script>
+</body>
+</html>
