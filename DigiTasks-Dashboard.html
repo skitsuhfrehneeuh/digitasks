@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>DigiTasks - Dashboard</title>
+    <style>
+        body {
+            font-family: 'Press Start 2P', sans-serif;
+            background-color: #292929;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #f4a261;
+            display: flex;
+            justify-content: flex-start; /* Keep the logo on the left */
+            align-items: center;
+            width: 100%;
+            padding: 12px 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            opacity: 0;
+            animation: slideIn 1.2s forwards;
+            animation-delay: 0.3s;
+        }
+
+        /* Logo */
+        .navbar .logo {
+            font-size: 15px;
+            font-weight: bold;
+            color: #292929;
+            margin-right: 20px; /* Space between logo and links */
+        }
+
+        /* Navbar Links */
+        .navbar .nav-links {
+            display: flex;
+            justify-content: flex-start; /* This keeps the links starting from the left */
+            margin-left: 295px;
+            flex-grow: 1; /* Allow the links container to grow and take the remaining space */
+        }
+
+        /* Navbar Links Style */
+        .navbar a {
+            color: #292929;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 8px 15px;
+            transition: background-color 0.3s ease;
+            margin: 0 8px; /* Adjust margin if you want to move links closer together */
+        }
+
+        .navbar a:hover {
+            background-color: #f1f1f1;
+            color: #f4a261;
+        }
+
+        /* Fade In Animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Slide In Animation for Navbar */
+        @keyframes slideIn {
+            0% { transform: translateY(-50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Main Content Container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px;
+            width: 100%;
+            max-width: 900px;
+            opacity: 0;
+            animation: slideInUp 1s forwards;
+            animation-delay: 0.5s;
+        }
+
+        /* Welcome title */
+        .welcome-title {
+            font-size: 26px;
+            color: #f4a261;
+            margin-top: 60px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: capitalize;
+            letter-spacing: 0.5px;
+        }
+
+        /* Dashboard Section */
+        .dashboard-section {
+            width: 100%;
+            padding: 40px 30px;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+            animation: slideInUp 1s forwards;
+            animation-delay: 0.7s;
+        }
+
+        @keyframes slideInUp {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .active-project {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-top: 30px; /* Add padding-top to push elements down */
+        }
+
+        .project-details {
+            font-size: 16px;
+            color: #f4a261;
+            font-weight: bold;
+            letter-spacing: 0.2px;
+            margin-right: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            opacity: 1;
+            transition: opacity 1s ease-in-out; /* Make sure to smoothly fade out and fade in */
+        }
+
+        /* Fade out class */
+        .fade-out {
+            opacity: 0;
+        }
+
+        /* Fade in class */
+        .fade-in {
+            opacity: 1;
+        }
+
+        .start-tasking-button {
+            background-color: #f4a261;
+            color: #292929;
+            padding: 10px 20px;
+            font-size: 12px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Press Start 2P', sans-serif;
+            white-space: nowrap;
+        }
+
+        .start-tasking-button:hover {
+            transform: translateY(-4px); /* Slightly enlarge and move upwards */
+            background-color: #f1f1f1;
+            color: #f4a261;
+        }
+
+        /* Switch Project Button */
+        .switch-project-container {
+            position: relative;
+            margin-right: 10px;
+        }
+
+        .switch-project-button {
+            background-color: #444;
+            color: #fff;
+            padding: 10px 16px;
+            font-size: 12px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Press Start 2P', sans-serif;
+            white-space: nowrap;
+        }
+
+        .switch-project-button:hover {
+            transform: translateY(-4px); /* Slightly enlarge and move upwards */
+            background-color: #f4a261;
+            color: #000000;
+        }
+
+        /* Dropdown List */
+        .project-dropdown {
+            display: none; /* Initially hidden */
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #444;
+            width: 250px;
+            padding: 10px 0;
+            border-radius: 4px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            max-height: 150px; /* Set max-height for scrolling */
+            overflow-y: auto; /* Enable vertical scrolling */
+            z-index: 10; /* Ensures dropdown stays on top */
+            animation: fadeInDropdown 0.5s forwards;
+        }
+
+        /* Fade In Dropdown Animation */
+        @keyframes fadeInDropdown {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Custom scrollbar for the dropdown */
+        .project-dropdown::-webkit-scrollbar {
+            width: 8px; /* Adjust scrollbar width */
+        }
+
+        .project-dropdown::-webkit-scrollbar-thumb {
+            background-color: #f4a261; /* Set scrollbar color to match the theme */
+            border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+        }
+
+        .project-dropdown::-webkit-scrollbar-track {
+            background-color: #333; /* Dark background for the track */
+            border-radius: 10px; /* Rounded corners for the scrollbar track */
+        }
+
+        /* Ensures dropdown fits within the window without clipping */
+        .project-dropdown a {
+            padding: 10px 15px;
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .project-dropdown a:hover {
+            background-color: #f4a261;
+            color: #292929;
+        }
+
+
+        /* Stats Section */
+        .stats-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            width: 100%;
+            gap: 20px;
+            flex-wrap: nowrap; /* Ensures they stay on one line */
+        }
+
+        .stat-card {
+            background-color: #444;
+            color: #fff;
+            width: 100%; /* Ensures cards take full width of their container */
+            max-width: 400px; /* Limits the maximum width */
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+            padding: 0;
+            opacity: 0;
+            animation: fadeInStatCard 0.5s forwards;
+        }
+
+        /* Fade In Animation for Stat Cards */
+        @keyframes fadeInStatCard {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .stat-card .title {
+            background-color: rgb(73, 73, 73);
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .stat-card .content {
+            background-color: #555;
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        .stat-card h3 {
+            font-size: 18px;
+            margin: 8px 0;
+        }
+
+        .stat-card p {
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        /* Payout Section */
+        .payout-section {
+            width: 100%;
+            padding: 40px 30px;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+            animation: slideInUp 1s forwards;
+            animation-delay: 1s;
+        }
+
+        .payout-section h3 {
+            font-size: 16px;
+            color: #f4a261;
+            margin-bottom: 10px;
+        }
+
+        .payout-section .pending-payment {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #fff; /* Changed to white */
+        }
+
+        .recent-payouts {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 20px;
+        }
+
+        .recent-payouts .stat-card {
+            width: 30%;
+            padding: 15px;
+            background-color: #444;
+        }
+
+        .recent-payouts .stat-card .title {
+            font-size: 14px;
+        }
+
+        .recent-payouts .stat-card .content {
+            font-size: 24px;
+            font-weight: bold;
+            color: #f4a261;
+        }
+
+        .recent-payouts .stat-card p {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* Adjust next payout date style */
+        #nextPayoutDate {
+            font-size: 50%;  /* 50% smaller */
+            opacity: 0.5;    /* 50% visible */
+        }
+
+        /* Active Project and Payments Titles */
+        .active-project-title,
+        .payments-title {
+            position: absolute;
+            top: -10px; /* Moves the title up closer to the window's top */
+            left: 20px; /* Moves the title to the left */
+            font-size: 18px;
+            font-weight: bold;
+            color: #f4a261;
+            background-color: #292929; /* Adds a background color to differentiate the title */
+            padding: 10px;
+            margin: 0; /* Removes the default margin */
+            border-radius: 5px;
+            border: 2px solid #f4a261; /* Adds a border around the title */
+        }
+
+        .active-project-title {
+            top: 10px; /* Adjust the position to be close to the top left corner */
+        }
+
+        .payments-title {
+            top: 10px; /* Adjust the position to be close to the top */
+        }
+
+        /* Additional spacing before the first content title */
+        .dashboard-section .title-spacing,
+        .payout-section .title-spacing {
+            margin-top: 40px; /* Added more space before the first content title */
+        }
+
+        /* Add transition to dropdown */
+        .project-dropdown {
+            transition: opacity 0.3s ease, visibility 0s 0.3s; /* Smoothly fade out */
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">DigiTasks</div>
+        <div class="nav-links">
+            <a href="http://127.0.0.1:5500/DigiTasks-Dashboard.html#">Dashboard</a>
+            <a href="http://127.0.0.1:5500/DigiTasks-Tasklog.html#">Task Log</a>
+            <a href="http://127.0.0.1:5500/DigiTasks-Project.html#">Project</a>
+            <a href="http://127.0.0.1:5500/DigiTasks-Feedback.html##">Feedback</a>
+            <a href="http://127.0.0.1:5500/DigiTasks-Support.html##">Support</a>
+            <a href="http://127.0.0.1:5500/DigiTasks-Account.html#">Account</a>
+        </div>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <!-- Welcome Message -->
+        <div class="welcome-title">
+            Welcome, Joshua!
+        </div>
+
+        <!-- Dashboard Section -->
+        <div class="dashboard-section">
+            <!-- Active Project Title -->
+            <div class="active-project-title">Active Project</div>
+
+            <div class="active-project">
+                <div class="project-details">
+                    Traffic Sign Annotation
+                </div>
+                <div class="buttons-container" style="display: flex; gap: 10px;">
+                    <!-- Switch Project Button -->
+                    <div class="switch-project-container">
+                        <button class="switch-project-button" onclick="toggleDropdown(event)">Switch Project</button>
+                        <div class="project-dropdown" id="projectDropdown">
+                            <a href="#" onclick="switchProject('Traffic Sign Annotation')">Traffic Sign Annotation</a>
+                            <a href="#" onclick="switchProject('Traffic Light Annotation')">Traffic Light Annotation</a>
+                            <a href="#" onclick="switchProject('Vehicle Annotation')">Vehicle Annotation</a>
+                            <a href="#" onclick="switchProject('Road Annotation')">Road Annotation</a>
+                            <a href="#" onclick="switchProject('Building Annotation')">Building Annotation</a>
+                            <a href="#" onclick="switchProject('Pedestrian Annoatation')">Pedestrian Annoatation</a>
+                        </div>
+                    </div>
+
+                    <!-- Start Tasking Button -->
+                    <button class="start-tasking-button">Start Tasking</button>
+                </div>
+            </div>
+
+            <!-- Spacing before first content title -->
+            <div class="title-spacing"></div>
+
+            <div class="stats-section">
+                <div class="stat-card">
+                    <div class="title">Total Tasks</div>
+                    <div class="content">
+                        <h3>0</h3>
+                        <p>Completed Tasks</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="title">Ongoing Tasks</div>
+                    <div class="content">
+                        <h3>0</h3>
+                        <p>Ongoing Tasks</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="title">Pending Tasks</div>
+                    <div class="content">
+                        <h3>0</h3>
+                        <p>Pending Tasks</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payout Section -->
+        <div class="payout-section">
+            <!-- Payments Title -->
+            <div class="payments-title">Payments</div>
+
+            <!-- Spacing before first content title -->
+            <div class="title-spacing"></div>
+
+            <!-- Pending Payout Title -->
+            <h3>Pending Payout</h3>
+            <!-- Fixed Pending Payment -->
+            <div class="pending-payment">
+                $0.00 <span id="nextPayoutDate"></span>
+            </div>
+            <h3>Recent Payouts</h3>
+            <div class="recent-payouts">
+                <div class="stat-card">
+                    <div class="title">N/A</div>
+                    <div class="content">$0.00</div>
+                </div>
+                <div class="stat-card">
+                    <div class="title">N/A</div>
+                    <div class="content">$0.00</div>
+                </div>
+                <div class="stat-card">
+                    <div class="title">N/A</div>
+                    <div class="content">$0.00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Function to toggle project dropdown visibility
+        function toggleDropdown(event) {
+            const dropdown = document.getElementById("projectDropdown");
+
+            // Prevent click from closing the dropdown when clicking inside the dropdown itself
+            if (dropdown.contains(event.target)) {
+                return;
+            }
+
+            if (dropdown.style.display === "block") {
+                dropdown.style.display = "none";
+            } else {
+                dropdown.style.display = "block";
+            }
+        }
+
+        // Function to switch project
+        function switchProject(projectName) {
+            const projectDetails = document.querySelector(".project-details");
+            const dropdown = document.getElementById("projectDropdown");
+
+        // Add fade-out effect
+            projectDetails.classList.add("fade-out");
+            dropdown.style.display = "none";
+
+        // After 1.5 second, switch project name and add fade-in effect
+        setTimeout(function() {
+            projectDetails.textContent = projectName;
+            projectDetails.classList.remove("fade-out");
+            projectDetails.classList.add("fade-in");
+
+            }, 1500); // Wait 1.5 second before fading in the new project
+
+        // Reset the fade-in effect after 0.65s (for smoother transition)
+        setTimeout(function() {
+            projectDetails.classList.remove("fade-in");
+            }, 2150); // Wait 2.15 seconds for total transition
+        }
+
+
+        // Add event listener to detect clicks outside of the dropdown
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById("projectDropdown");
+            const button = document.querySelector('.switch-project-button');
+
+            if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        document.getElementById("dashboardLink").addEventListener("click", function() {
+        window.location.href = "http://127.0.0.1:5500/DigiTasks-Dashboard.html";
+        });
+
+        document.getElementById("taskLogLink").addEventListener("click", function() {
+        window.location.href = "http://127.0.0.1:5500/DigiTasks-Tasklog.html#";
+        });
+
+        document.getElementById("projectLink").addEventListener("click", function() {
+        window.location.href = "http://127.0.0.1:5500/DigiTasks-Project.html#";
+        });
+    </script>
+</body>
+</html>
