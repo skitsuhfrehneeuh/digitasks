@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>DigiTasks - Login/Register</title>
+    <title>Digitasks</title>
     <style>
         body {
             font-family: 'Press Start 2P', sans-serif;
@@ -233,10 +233,10 @@
             opacity: 0; /* Fully transparent */
             transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
             color: red; /* Example styling */
-            font-size: 14.5px;
+            max-width: 400px;
+            font-size: 14px;
             margin-top: 10px;
         }
-        
 
         @keyframes slideInLeft {
             from {
@@ -319,14 +319,31 @@
             opacity: 0;
             color: #31fc60;
             font-size: 14px;
-            margin-top: 5px;
-            margin-bottom: 5px;
             transition: opacity 0.5s ease-in-out, margin-top 0.5s ease; /* Smooth transition for opacity and margin-top */
         }
 
         #verification-message.active {
             opacity: 1;
             margin-top: 30px; /* Move message down when active */
+        }
+
+        /* Invalid message */
+        #invalid-message {
+            opacity: 0;
+            color: red; /* Red color for invalid message */
+            font-size: 14px;
+            margin-top: -20px;
+            margin-bottom: 10px;
+            transition: opacity 0.5s ease-in-out, margin-top 0.5s ease; /* Smooth transition for opacity and margin-top */
+        }
+
+        #invalid-message.active {
+            opacity: 1;
+            margin-top: 20px; /* Move message down when active */
+        }
+
+        #forgotForm.active #sendVerificationButton {
+            margin-top: 10px; /* Move button down when verification message is active */
         }
 
         #forgotForm.active #sendVerificationButton {
@@ -386,6 +403,7 @@
                     <h2>Forgot Password</h2>
                     <input type="email" id="forgotEmail" placeholder="Email" required>
                     <div id="verification-message">Verification Sent.</div>
+                    <div id="invalid-message">Invalid Email.</div>
                     <button type="submit" id="sendVerificationButton">Submit</button>
                     <button type="button" class="sign-in-btn" id="backToLoginBtn">Sign In</button> <!-- Sign In button -->
                 </form>
@@ -426,6 +444,7 @@
         const loginErrorMessage = document.getElementById('error-message');
         const registerErrorMessage = document.getElementById('register-error-message');
         const verificationMessage = document.getElementById('verification-message');
+        const invalidMessage = document.getElementById('invalid-message');
         const toggleLoginPassword = document.getElementById('toggleLoginPassword');
         const toggleRegisterPassword = document.getElementById('toggleRegisterPassword');
         const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
@@ -455,12 +474,16 @@
         // Forgot password link actions
         forgotPasswordLink.addEventListener('click', () => {
             loginForm.classList.remove('active');
+            registerForm.classList.remove('active');
             forgotForm.classList.add('active');
+            formContainer.classList.add('expand');
         });
     
         backToLoginBtn.addEventListener('click', () => {
             forgotForm.classList.remove('active');
             loginForm.classList.add('active');
+            registerForm.classList.remove('active');
+            formContainer.classList.remove('expand');
         });
     
         // Show/hide password functionality
@@ -488,7 +511,7 @@
             loginErrorMessage.style.opacity = '0'; // Fade out
             setTimeout(() => {
                 loginErrorMessage.style.display = 'none'; // Fully hide after fade out
-            }, 300); // Match the transition duration in CSS
+            }, 150); // Match the transition duration in CSS
         }
 
         // Handle login
@@ -532,8 +555,7 @@
             e.preventDefault();
     
             if (registerPasswordInput.value !== confirmPasswordInput.value) {
-                registerErrorMessage.style.display = 'block';
-                registerErrorMessage.style.opacity = '1';
+                showRegisterErrorMessage();
             } else {
                 registerErrorMessage.style.display = 'none';
                 registerForm.reset();
@@ -551,17 +573,32 @@
                 hideregisterErrorMessage();
             });
         });
-    
-        // Handle forgot password verification
+        
+         // Handle forgot password verification
         sendVerificationButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            verificationMessage.classList.add('active');
-            sendVerificationButton.classList.add('active');
+        e.preventDefault();
+
+        forgotEmailInput.value
+
+        // Check if email is valid (contains '@' and '.')
+        if (!forgotEmailInput.value.includes('@') || !forgotEmailInput.value.includes('.')) {
+            invalidMessage.classList.add('active'); // Show the invalid message
             setTimeout(() => {
-                verificationMessage.classList.remove('active');
-                sendVerificationButton.classList.remove('active');
-            }, 3000);
-        });
+            invalidMessage.classList.remove('active'); // Hide the invalid message after 3 seconds
+        }, 3000); 
+            return; // Stop the function if the email is invalid
+        } else {
+            invalidMessage.classList.remove('active'); // Hide the invalid message if the email is valid
+        }
+
+        verificationMessage.classList.add('active');
+        sendVerificationButton.classList.add('active');
+        setTimeout(() => {
+            verificationMessage.classList.remove('active');
+            sendVerificationButton.classList.remove('active');
+        }, 3000);
+    });
+
     </script>    
 
     </script>
