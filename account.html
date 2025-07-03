@@ -7,6 +7,11 @@
     <title>Digitasks</title>
     <link rel="icon" href="digitaskscon.png" type="image/png">
     <style>
+        /* Base HTML font size for rem units */
+        html {
+            font-size: 16px; /* Defines 1rem = 16px */
+        }
+
         body {
             font-family: 'Press Start 2P', sans-serif;
             background-color: #292929;
@@ -18,7 +23,8 @@
             align-items: center;
             opacity: 0;
             animation: fadeIn 1.5s forwards;
-            overflow: hidden;
+            overflow: hidden; /* Manage scroll with scroll-layer */
+            min-height: 100vh; /* Ensure body takes full viewport height */
         }
 
         /* Navbar */
@@ -28,8 +34,8 @@
             justify-content: flex-start;
             align-items: center;
             width: 100%;
-            padding: 12px 20px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 0.75rem 1.25rem; /* 12px 20px -> rem */
+            box-shadow: 0px 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* 2px 5px -> rem */
             position: fixed;
             top: 0;
             left: 0;
@@ -40,27 +46,29 @@
         }
 
         .navbar .logo {
-            font-size: 15px;
+            font-size: 0.9375rem; /* 15px -> rem */
             font-weight: bold;
             color: #292929;
-            margin-right: 20px;
+            margin-right: 1.25rem; /* 20px -> rem */
         }
 
         .navbar .nav-links {
             display: flex;
             justify-content: flex-start;
-            margin-left: 295px;
+            margin-left: 18.4375rem; /* 295px -> rem */
             flex-grow: 1;
+            flex-wrap: wrap; /* Allow links to wrap on smaller screens */
         }
 
         .navbar a {
             color: #292929;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 0.875rem; /* 14px -> rem */
             font-weight: bold;
-            padding: 8px 15px;
+            padding: 0.5rem 0.9375rem; /* 8px 15px -> rem */
             transition: background-color 0.3s ease;
-            margin: 0 8px;
+            margin: 0 0.5rem; /* 8px -> rem */
+            white-space: nowrap; /* Prevent links from breaking */
         }
 
         .navbar a:hover {
@@ -76,7 +84,7 @@
 
         /* Slide In Animation for Navbar */
         @keyframes slideIn {
-            0% { transform: translateY(-50px); opacity: 0; }
+            0% { transform: translateY(-3.125rem); opacity: 0; } /* 50px -> rem */
             100% { transform: translateY(0); opacity: 1; }
         }
 
@@ -88,12 +96,13 @@
             bottom: 0;
             width: 100%;
             overflow-y: auto;
+            padding-top: 5rem; /* Adjust for fixed navbar height, 80px -> rem */
             animation: fadeIn 3s forwards;
         }
 
         /* Custom Scrollbar */
         .scroll-layer::-webkit-scrollbar {
-            width: 10px;
+            width: 0.625rem; /* 10px -> rem */
             opacity: 0;
             animation: fadeScrollbar 3s forwards;
         }
@@ -104,7 +113,7 @@
 
         .scroll-layer::-webkit-scrollbar-thumb {
             background: #f4a261;
-            border-radius: 5px;
+            border-radius: 0.3125rem; /* 5px -> rem */
             opacity: 0;
             animation: fadeScrollbar 3s forwards;
         }
@@ -120,26 +129,27 @@
 
         .container {
             width: 100%;
-            max-width: 950px;
+            max-width: 59.375rem; /* 950px -> rem */
             margin: 0 auto;
-            padding: 20px;
+            padding: 1.25rem; /* 20px -> rem */
+            box-sizing: border-box; /* Include padding in element's total width/height */
         }
 
         /* Sections with Slide Up and Fade In */
         .section {
             background-color: #333;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            margin-top: 10px;
-            margin-bottom: 30px;
+            padding: 1.25rem; /* 20px -> rem */
+            border-radius: 0.5rem; /* 8px -> rem */
+            box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.3); /* 4px 6px -> rem */
+            margin-top: 0.625rem; /* 10px -> rem */
+            margin-bottom: 1.875rem; /* 30px -> rem */
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(1.25rem); /* 20px -> rem */
             animation: fadeUp 1s forwards;
         }
 
         @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(30px); }
+            0% { opacity: 0; transform: translateY(1.875rem); } /* 30px -> rem */
             100% { opacity: 1; transform: translateY(0); }
         }
 
@@ -157,14 +167,14 @@
         }
 
         .welcome-title {
-            font-size: 26px;
+            font-size: 1.625rem; /* 26px -> rem */
             color: #f4a261;
-            margin-top: 60px;
-            margin-bottom: 15px;
+            margin-top: 3.75rem; /* 60px -> rem */
+            margin-bottom: 0.9375rem; /* 15px -> rem */
             text-align: center;
             font-weight: bold;
             text-transform: capitalize;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.03125rem; /* 0.5px -> rem */
             opacity: 0;
             animation: slideUpFadeIn 1s forwards;
             animation-delay: 1s;
@@ -172,7 +182,7 @@
 
         @keyframes slideUpFadeIn {
             0% {
-                transform: translateY(50px);
+                transform: translateY(3.125rem); /* 50px -> rem */
                 opacity: 0;
             }
             100% {
@@ -182,37 +192,41 @@
         }
 
         .section h2 {
-            font-size: 16px;
+            font-size: 1rem; /* 16px -> rem */
             color: #f4a261;
             font-weight: bold;
-            letter-spacing: 0.2px;
+            letter-spacing: 0.0125rem; /* 0.2px -> rem */
             margin: 0;
-            padding: 10px;
-            border-radius: 5px;
-            border: 2px solid #f4a261;
+            padding: 0.625rem; /* 10px -> rem */
+            border-radius: 0.3125rem; /* 5px -> rem */
+            border: 0.125rem solid #f4a261; /* 2px -> rem */
             background-color: #292929;
             display: inline-block;
-            margin-left: -8px;
-            margin-top: -8px;
-            margin-bottom: 5px;
+            margin-left: -0.5rem; /* -8px -> rem */
+            margin-top: -0.5rem; /* -8px -> rem */
+            margin-bottom: 0.3125rem; /* 5px -> rem */
         }
 
         .section p, .section ul {
             color: #ccc;
-            font-size: 0.85em;
+            font-size: 0.85rem; /* 0.85em -> rem */
             line-height: 1.8;
         }
 
         .details-table {
             width: 100%;
-            margin-top: 20px;
+            margin-top: 1.25rem; /* 20px -> rem */
             border-collapse: collapse;
+            display: block; /* For responsive table behavior */
+            overflow-x: auto; /* Enable horizontal scroll on small screens */
+            white-space: nowrap; /* Prevent cell content from wrapping by default */
         }
 
         .details-table th, .details-table td {
-            padding: 12px;
+            padding: 0.75rem; /* 12px -> rem */
             text-align: left;
-            border: 1px solid #555;
+            border: 0.0625rem solid #555; /* 1px -> rem */
+            white-space: normal; /* Allow text to wrap within cells in table */
         }
 
         .details-table th {
@@ -244,41 +258,43 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            width: 250px; /* Set a specific width */
-            margin-top: 20px;
+            width: 15.625rem; /* 250px -> rem */
+            margin-top: 1.25rem; /* 20px -> rem */
         }
 
         input[type="password"], input[type="email"], input[type="text"] {
             background-color: #444;
-            border: 1px solid #555;
+            border: 0.0625rem solid #555; /* 1px -> rem */
             color: #fff;
-            padding: 10px;
-            margin: 10px 0;
+            padding: 0.625rem; /* 10px -> rem */
+            margin: 0.625rem 0; /* 10px -> rem */
             width: 100%;
-            border-radius: 5px;
+            border-radius: 0.3125rem; /* 5px -> rem */
             text-align: center;
-            font-size: 11px; /* Consistent font size */
-            font-family: 'Press Start 2P', sans-serif; /* Ensure the font is applied */
+            font-size: 0.6875rem; /* 11px -> rem */
+            font-family: 'Press Start 2P', sans-serif;
+            box-sizing: border-box; /* Include padding in width */
         }
 
         input[type="password"]:focus, input[type="email"]:focus, input[type="text"]:focus {
             background-color: #f4a261;
-            border: 1px solid #d4a600;
+            border: 0.0625rem solid #d4a600; /* 1px -> rem */
         }
 
         button {
-            font-size: 12px;
+            font-size: 0.75rem; /* 12px -> rem */
             font-family: 'Press Start 2P', sans-serif;
             width: 80%;
-            padding: 10px;
+            padding: 0.625rem; /* 10px -> rem */
             background-color: #f4a261;
             border: none;
             color: #292929;
             cursor: pointer;
-            margin-left: 35px;
-            border-radius: 5px;
+            margin-left: 2.1875rem; /* 35px -> rem */
+            border-radius: 0.3125rem; /* 5px -> rem */
             transition: background-color 0.3s ease;
             font-weight: bold;
+            box-sizing: border-box; /* Include padding in width */
         }
 
         button:hover {
@@ -288,19 +304,19 @@
 
         label {
             color: #f4a261;
-            font-size: 14px;
+            font-size: 0.875rem; /* 14px -> rem */
             display: block;
-            margin-top: 10px;
+            margin-top: 0.625rem; /* 10px -> rem */
         }
 
         /* Account Activity Section */
         .section.account-activity {
-            position: relative; /* Keeps the layout intact for resizing */
-            padding-bottom: 20px; /* Adds space for the logout button */
+            position: relative;
+            padding-bottom: 1.25rem; /* 20px -> rem */
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(1.25rem); /* 20px -> rem */
             animation: fadeUp 1s forwards;
-            animation-delay: 2.8s; /* Delay for this section to appear */
+            animation-delay: 2.8s;
         }
 
         /* Sequential Delay for Each Section */
@@ -317,24 +333,24 @@
         }
 
         .section:nth-of-type(5) {
-            animation-delay: 2.7s; /* Specific delay for account activity */
+            animation-delay: 2.7s;
         }
 
         .logout-btn-container {
-            margin-top: 20px; /* Adds space between the table and the button */
+            margin-top: 1.25rem; /* 20px -> rem */
             display: flex;
-            justify-content: flex-end; /* Aligns the button to the right */
+            justify-content: flex-end;
         }
 
         .logout-btn {
-            font-size: 14px;
+            font-size: 0.875rem; /* 14px -> rem */
             font-family: 'Press Start 2P', sans-serif;
             background-color: #f4a261;
             color: #292929;
             border: none;
-            padding: 12px 20px;
+            padding: 0.75rem 1.25rem; /* 12px 20px -> rem */
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 0.3125rem; /* 5px -> rem */
             width: auto;
             transition: background-color 0.3s ease;
         }
@@ -343,10 +359,151 @@
             background-color: #fff;
             color: #f4a261;
         }
+
+        /* --- Media Queries for Responsiveness --- */
+        @media (max-width: 768px) {
+            html {
+                font-size: 14px; /* Slightly smaller base font for tablets/smaller screens */
+            }
+
+            .navbar {
+                flex-direction: column; /* Stack logo and nav links vertically */
+                align-items: flex-start;
+                padding-bottom: 0.5rem;
+            }
+
+            .navbar .logo {
+                font-size: 0.9rem; /* Smaller logo */
+                margin-bottom: 0.5rem;
+            }
+
+            .navbar .nav-links {
+                margin-left: 0; /* Remove fixed left margin */
+                justify-content: space-around; /* Distribute links evenly */
+                width: 100%; /* Take full width */
+                flex-wrap: wrap; /* Ensure links wrap */
+            }
+
+            .navbar a {
+                font-size: 0.75rem; /* Smaller nav links */
+                padding: 0.4rem 0.6rem;
+                margin: 0.2rem;
+            }
+
+            .welcome-title {
+                font-size: 1.3rem; /* Smaller main titles */
+                margin-top: 6rem; /* Adjust for fixed navbar height */
+            }
+
+            .section h2 {
+                font-size: 0.9rem; /* Smaller section titles */
+                padding: 0.4rem;
+                margin-left: -0.4rem;
+                margin-top: -0.4rem;
+            }
+
+            .section p, .section ul {
+                font-size: 0.75rem; /* Smaller paragraph text */
+            }
+
+            /* Responsive Tables */
+            .details-table thead {
+                display: none; /* Hide table headers on small screens */
+            }
+
+            .details-table, .details-table tbody, .details-table tr, .details-table td {
+                display: block;
+                width: 100%;
+                white-space: normal; /* Allow text to wrap */
+            }
+
+            .details-table tr {
+                margin-bottom: 0.625rem; /* 10px -> rem */
+                border: 0.0625rem solid #555; /* 1px -> rem */
+                border-radius: 0.3125rem; /* 5px -> rem */
+                background-color: #333;
+            }
+
+            .details-table td {
+                border: none;
+                position: relative;
+                padding-left: 50%; /* Space for pseudo-element label */
+                text-align: right;
+            }
+
+            /* Add labels for table cells on small screens using pseudo-elements */
+            .details-table td:before {
+                content: attr(data-label); /* Get label from data-label attribute */
+                position: absolute;
+                left: 0;
+                width: 50%;
+                padding-left: 0.625rem; /* 10px -> rem */
+                font-weight: bold;
+                text-align: left;
+                color: #f4a261;
+                font-size: 0.75rem; /* Smaller font for label */
+            }
+
+            /* Account Info Table */
+            .details-table tbody tr:nth-child(1) td:first-child:before { content: "User ID"; }
+            .details-table tbody tr:nth-child(2) td:first-child:before { content: "Email"; }
+            .details-table tbody tr:nth-child(3) td:first-child:before { content: "Role"; }
+            .details-table tbody tr:nth-child(4) td:first-child:before { content: "Status"; }
+
+            /* Account Activity Table */
+            .section.account-activity .details-table tbody tr:nth-child(1) td:first-child:before { content: "Activity"; }
+            .section.account-activity .details-table tbody tr:nth-child(2) td:first-child:before { content: "Date"; }
+            .section.account-activity .details-table tbody tr:nth-child(3) td:first-child:before { content: "Status"; }
+
+
+            .input-container {
+                width: 100%; /* Full width for input containers */
+                align-items: center; /* Center inputs */
+            }
+
+            input[type="password"], input[type="email"], input[type="text"] {
+                font-size: 0.8rem; /* Slightly larger input font for mobile readability */
+                padding: 0.8rem;
+                text-align: left; /* Align input text to left for easier typing */
+            }
+
+            button {
+                width: 90%; /* Buttons take more width */
+                margin-left: 0; /* Center buttons */
+                font-size: 0.85rem;
+            }
+
+            .logout-btn-container {
+                justify-content: center; /* Center logout button */
+            }
+
+            .logout-btn {
+                width: auto; /* Adjust width of logout button */
+                padding: 0.8rem 1.5rem;
+            }
+        }
+
+        /* Smaller screens / phones (e.g., max-width 480px) */
+        @media (max-width: 480px) {
+            html {
+                font-size: 13px; /* Even smaller base font for very small screens */
+            }
+
+            .welcome-title {
+                font-size: 1.1rem;
+            }
+
+            .section h2 {
+                font-size: 0.85rem;
+            }
+
+            .details-table td {
+                padding-left: 45%; /* Adjust padding for pseudo-element labels */
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <div class="navbar">
         <div class="logo">DigiTasks</div>
         <div class="nav-links">
@@ -359,15 +516,12 @@
         </div>
     </div>
 
-    <!-- Scrollable Content Layer -->
     <div class="scroll-layer">
         <div class="container">
-            <!-- Welcome Message -->
             <div class="welcome-title">
                 Account Details
             </div>
 
-            <!-- Account Info Section -->
             <div class="section">
                 <h2>Account Information</h2>
                 <p>Here you can review your account details and make any necessary changes.</p>
@@ -380,41 +534,39 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>User ID</td>
-                            <td>001</td>
+                            <td data-label="Field">User ID</td>
+                            <td data-label="Details">001</td>
                         </tr>
                         <tr>
-                            <td>Email</td>
-                            <td>cayabyabjoshua@digitasks.com</td>
+                            <td data-label="Field">Email</td>
+                            <td data-label="Details">cayabyabjoshua@digitasks.com</td>
                         </tr>
                         <tr>
-                            <td>Role</td>
-                            <td>Senior Team Leader</td>
+                            <td data-label="Field">Role</td>
+                            <td data-label="Details">Senior Team Leader</td>
                         </tr>
                         <tr>
-                            <td>Status</td>
-                            <td>Active</td>
+                            <td data-label="Field">Status</td>
+                            <td data-label="Details">Active</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Payment Method Section -->
             <div class="section">
                 <h2>Payment Method</h2>
                 <p>Add or update your payment method for transactions.</p>
                 <div class="input-container">
                     <label for="paypal-email">PayPal Email:</label>
                     <input type="email" id="paypal-email" name="paypal-email" placeholder="Enter your PayPal email">
-                    
+
                     <label for="gcash-number">GCash Number:</label>
                     <input type="text" id="gcash-number" name="gcash-number" placeholder="Enter your GCash number">
-                    
+
                     <button type="button">Save Payment</button>
                 </div>
             </div>
 
-            <!-- Change Password Section -->
             <div class="section">
                 <h2>Change Password</h2>
                 <p>If you wish to change your password, please enter your current password and the new one.</p>
@@ -427,7 +579,6 @@
                 </div>
             </div>
 
-            <!-- Account Activity Section -->
             <div class="section account-activity">
                 <h2>Account Activity</h2>
                 <p>Track your recent account activity here.</p>
@@ -441,19 +592,18 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Logged in</td>
-                            <td>12/15/2024</td>
-                            <td>Successful</td>
+                            <td data-label="Activity">Logged in</td>
+                            <td data-label="Date">12/15/2024</td>
+                            <td data-label="Status">Successful</td>
                         </tr>
                         <tr>
-                            <td>Password change request</td>
-                            <td>12/15/2024</td>
-                            <td>Successful</td>
+                            <td data-label="Activity">Password change request</td>
+                            <td data-label="Date">12/15/2024</td>
+                            <td data-label="Status">Successful</td>
                         </tr>
                     </tbody>
                 </table>
 
-                <!-- Logout Button Container -->
                 <div class="logout-btn-container">
                     <button class="logout-btn" onclick="window.location.href='index.html'">Logout</button>
                 </div>
