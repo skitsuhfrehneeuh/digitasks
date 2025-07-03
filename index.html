@@ -1,3 +1,8 @@
+Here's the revised CSS for your `index.html` file, applying responsive design principles to improve its layout, text scaling, and mobile optimization.
+
+Please replace the entire `<style>` section in your `index.html` file with the following code:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +13,11 @@
     <title>Digitasks</title>
     <link rel="icon" href="digitaskscon.png" type="image/png">
     <style>
+        /* Base HTML font size for rem units */
+        html {
+            font-size: 16px; /* Defines 1rem = 16px */
+        }
+
         body {
             font-family: 'Press Start 2P', sans-serif;
             background-color: #292929;
@@ -15,9 +25,9 @@
             display: flex;
             height: 100vh;
             margin: 0;
-            overflow-y: hidden;
+            overflow-y: hidden; /* Control scrolling via overflow on sections */
             overflow-x: hidden;
-            flex-direction: row;
+            flex-direction: row; /* Default for desktop */
         }
 
         .left-section {
@@ -26,25 +36,26 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 40px 30px;
+            padding: 2.5rem 1.875rem; /* 40px 30px -> rem */
             box-sizing: border-box;
             animation: slideInLeft 1s ease-out forwards;
+            overflow-y: auto; /* Allow scrolling within left section if content overflows */
         }
 
         .welcome-title {
-            font-size: 24px;
+            font-size: 1.5rem; /* 24px -> rem */
             color: #292929;
-            margin-bottom: 40px;
+            margin-bottom: 2.5rem; /* 40px -> rem */
             text-align: center;
             font-weight: bold;
             text-transform: capitalize;
-            letter-spacing: 1px;
+            letter-spacing: 0.0625rem; /* 1px -> rem */
         }
 
         .logo-item {
             display: flex;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 2.5rem; /* 40px -> rem */
             transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
         }
 
@@ -57,32 +68,32 @@
         }
 
         .logo-circle {
-            width: 80px;
-            height: 80px;
+            width: 5rem; /* 80px -> rem */
+            height: 5rem; /* 80px -> rem */
             background-color: #fff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 25px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-right: 1.5625rem; /* 25px -> rem */
+            box-shadow: 0px 0.25rem 0.625rem rgba(0, 0, 0, 0.1); /* 4px 10px -> rem */
         }
 
         .logo-circle i {
-            font-size: 40px;
+            font-size: 2.5rem; /* 40px -> rem */
             color: #292929;
         }
 
         .logo-text {
             color: #292929;
-            font-size: 16px;
+            font-size: 1rem; /* 16px -> rem */
             font-weight: 400;
             line-height: 1.6;
-            max-width: 400px;
-            padding: 0 20px;
+            max-width: 25rem; /* 400px -> rem */
+            padding: 0 1.25rem; /* 20px -> rem */
             margin-right: 0;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-            letter-spacing: 0.5px;
+            text-shadow: 0.0625rem 0.0625rem 0.125rem rgba(0, 0, 0, 0.2); /* 1px 1px 2px -> rem */
+            letter-spacing: 0.03125rem; /* 0.5px -> rem */
             transition: color 0.3s ease;
             text-align: left;
         }
@@ -93,38 +104,42 @@
             justify-content: center;
             align-items: center;
             animation: slideInRight 1s ease-out forwards;
+            overflow-y: auto; /* Allow scrolling within right section */
         }
 
         .container {
-            width: 50%;
+            width: 50%; /* Adjusts for right-section */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             height: 100%;
+            padding: 1.25rem; /* Add padding for smaller screens */
+            box-sizing: border-box;
         }
 
         .logo {
-            margin-bottom: 60px;
+            margin-bottom: 3.75rem; /* 60px -> rem */
         }
 
         .logo h1 {
-            font-size: 36px;
+            font-size: 2.25rem; /* 36px -> rem */
             margin: 0;
             color: #f4a261;
         }
 
         .form-container {
             background-color: #333;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem; /* 40px -> rem */
+            border-radius: 0.625rem; /* 10px -> rem */
+            box-shadow: 0px 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* 2px 5px -> rem */
             position: relative;
             overflow: hidden;
             width: 100%;
-            max-width: 420px;
+            max-width: 26.25rem; /* 420px -> rem */
             transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease;
+            box-sizing: border-box;
         }
 
         .form-container.shrink {
@@ -142,7 +157,7 @@
 
         form {
             display: none;
-            margin-bottom: 20px;
+            margin-bottom: 1.25rem; /* 20px -> rem */
             width: 100%;
             transition: opacity 0.5s ease-in-out;
         }
@@ -158,28 +173,28 @@
 
         input {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
+            padding: 0.75rem; /* 12px -> rem */
+            margin: 0.625rem 0; /* 10px -> rem */
             box-sizing: border-box;
-            border: 2px solid #ccc;
-            border-radius: 4px;
+            border: 0.125rem solid #ccc; /* 2px -> rem */
+            border-radius: 0.25rem; /* 4px -> rem */
             font-family: 'Press Start 2P', sans-serif;
-            font-size: 12px;
+            font-size: 0.75rem; /* 12px -> rem */
         }
 
         .password-container {
             position: relative;
             width: 100%;
-            margin: 10px 0;
+            margin: 0.625rem 0; /* 10px -> rem */
         }
 
         .password-container input {
-            padding-right: 40px;
+            padding-right: 2.5rem; /* 40px -> rem */
         }
 
         .password-container .eye-icon {
             position: absolute;
-            right: 10px;
+            right: 0.625rem; /* 10px -> rem */
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
@@ -190,25 +205,26 @@
             width: 100%;
             background-color: #f4a261;
             color: #000;
-            padding: 14px;
-            margin: 10px 0;
+            padding: 0.875rem; /* 14px -> rem */
+            margin: 0.625rem 0; /* 10px -> rem */
             border: none;
-            border-radius: 4px;
+            border-radius: 0.25rem; /* 4px -> rem */
             cursor: pointer;
             font-family: 'Press Start 2P', sans-serif;
-            font-size: 14px;
+            font-size: 0.875rem; /* 14px -> rem */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box;
         }
 
         button:hover {
-            transform: translateY(-4px); 
+            transform: translateY(-0.25rem); /* -4px -> rem */
             background-color: #f1f1f1;
             color: #f4a261;
         }
 
         .toggle-form {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 1.25rem; /* 20px -> rem */
         }
 
         .toggle-form button {
@@ -221,22 +237,22 @@
         }
 
         #error-message {
-            display: none; /* Initially hidden */
-            opacity: 0; /* Fully transparent */
-            transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
-            color: red; /* Example styling */
-            font-size: 14px;
-            margin-top: 10px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            color: red;
+            font-size: 0.875rem; /* 14px -> rem */
+            margin-top: 0.625rem; /* 10px -> rem */
         }
 
         .error-message {
-            display: none; /* Initially hidden */
-            opacity: 0; /* Fully transparent */
-            transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
-            color: red; /* Example styling */
-            max-width: 400px;
-            font-size: 14px;
-            margin-top: 10px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            color: red;
+            max-width: 25rem; /* 400px -> rem */
+            font-size: 0.875rem; /* 14px -> rem */
+            margin-top: 0.625rem; /* 10px -> rem */
         }
 
         @keyframes slideInLeft {
@@ -263,17 +279,17 @@
 
         /* Forgot Password Link */
         .forgot-password {
-            font-size: 12px;
+            font-size: 0.75rem; /* 12px -> rem */
             color: #f4a261;
             text-decoration: none;
-            margin-top: 10px;
+            margin-top: 0.625rem; /* 10px -> rem */
             display: block;
             text-align: center;
             transition: color 0.3s ease;
         }
 
         .forgot-password:hover {
-            color: #a8dadc; /* Change color on hover */
+            color: #a8dadc;
         }
 
         /* Forgot Password Form */
@@ -291,26 +307,26 @@
         }
 
         #forgotForm input {
-            margin: 10px 0; /* Same margin as the login form input */
-            margin-bottom: -10px;
+            margin: 0.625rem 0; /* 10px -> rem */
+            margin-bottom: -0.625rem; /* -10px -> rem */
         }
 
         #forgotForm #sendVerificationButton {
             width: 100%;
             background-color: #f4a261;
             color: #000;
-            padding: 14px;
-            margin: 10px 0; /* Same margin as the login form button */
+            padding: 0.875rem; /* 14px -> rem */
+            margin: 0.625rem 0; /* 10px -> rem */
             border: none;
-            border-radius: 4px;
+            border-radius: 0.25rem; /* 4px -> rem */
             cursor: pointer;
             font-family: 'Press Start 2P', sans-serif;
-            font-size: 14px;
+            font-size: 0.875rem; /* 14px -> rem */
             transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
         }
 
         #forgotForm #sendVerificationButton:hover {
-            transform: translateY(-4px);
+            transform: translateY(-0.25rem); /* -4px -> rem */
             background-color: #f1f1f1;
             color: #f4a261;
         }
@@ -319,38 +335,168 @@
         #verification-message {
             opacity: 0;
             color: #31fc60;
-            font-size: 14px;
-            transition: opacity 0.5s ease-in-out, margin-top 0.5s ease; /* Smooth transition for opacity and margin-top */
+            font-size: 0.875rem; /* 14px -> rem */
+            transition: opacity 0.5s ease-in-out, margin-top 0.5s ease;
         }
 
         #verification-message.active {
             opacity: 1;
-            margin-top: 30px; /* Move message down when active */
+            margin-top: 1.875rem; /* 30px -> rem */
         }
 
         /* Invalid message */
         #invalid-message {
             opacity: 0;
-            color: red; /* Red color for invalid message */
-            font-size: 14px;
-            margin-top: -20px;
-            margin-bottom: 10px;
-            transition: opacity 0.5s ease-in-out, margin-top 0.5s ease; /* Smooth transition for opacity and margin-top */
+            color: red;
+            font-size: 0.875rem; /* 14px -> rem */
+            margin-top: -1.25rem; /* -20px -> rem */
+            margin-bottom: 0.625rem; /* 10px -> rem */
+            transition: opacity 0.5s ease-in-out, margin-top 0.5s ease;
         }
 
         #invalid-message.active {
             opacity: 1;
-            margin-top: 20px; /* Move message down when active */
+            margin-top: 1.25rem; /* 20px -> rem */
         }
 
         #forgotForm.active #sendVerificationButton {
-            margin-top: 10px; /* Move button down when verification message is active */
+            margin-top: 0.625rem; /* 10px -> rem */
         }
 
-        #forgotForm.active #sendVerificationButton {
-            margin-top: 10px; /* Move button down when verification message is active */
+        /* --- Media Queries for Responsiveness --- */
+        @media (max-width: 768px) {
+            html {
+                font-size: 14px; /* Slightly smaller base font for tablets/smaller screens */
+            }
+
+            body {
+                flex-direction: column; /* Stack sections vertically */
+                height: auto; /* Allow body to grow with content */
+                overflow-y: auto; /* Allow body to scroll */
+            }
+
+            .left-section, .right-section {
+                width: 100%; /* Take full width */
+                padding: 1.25rem; /* 20px -> rem */
+                animation: none; /* Remove initial animations on small screens for faster load */
+                overflow-y: visible; /* Let container manage scroll */
+            }
+
+            .left-section {
+                padding-bottom: 0; /* Reduce space at bottom when stacking */
+            }
+
+            .welcome-title {
+                font-size: 1.3rem; /* Smaller main titles */
+                margin-bottom: 1.5rem;
+            }
+
+            .logo-item {
+                flex-direction: column; /* Stack icon and text */
+                text-align: center;
+                margin-bottom: 1.25rem; /* 20px -> rem */
+            }
+
+            .logo-circle {
+                margin-right: 0;
+                margin-bottom: 0.625rem; /* 10px -> rem */
+            }
+
+            .logo-circle i {
+                font-size: 2rem; /* Smaller icon */
+            }
+
+            .logo-text {
+                padding: 0; /* Remove horizontal padding */
+                font-size: 0.8rem; /* Smaller text */
+                max-width: 90%; /* Adjust max-width for text */
+            }
+
+            .container {
+                width: 90%; /* Adjust container width */
+                padding: 1rem; /* Adjust padding */
+                height: auto; /* Allow height to adjust */
+            }
+
+            .logo {
+                margin-bottom: 2.5rem; /* Adjust logo margin */
+            }
+
+            .logo h1 {
+                font-size: 1.8rem; /* Smaller logo title */
+            }
+
+            .form-container {
+                max-width: 100%; /* Allow form to take full width */
+                padding: 1.25rem; /* Adjust padding */
+            }
+
+            form h2 {
+                font-size: 1.2rem; /* Smaller form titles */
+            }
+
+            input {
+                font-size: 0.85rem; /* Slightly larger input font for mobile readability */
+                padding: 0.8rem;
+            }
+
+            button {
+                font-size: 0.9rem; /* Slightly larger button font */
+                padding: 0.9rem;
+            }
+
+            .password-container input {
+                padding-right: 2rem; /* Adjust padding for eye icon */
+            }
+
+            .password-container .eye-icon {
+                right: 0.5rem;
+            }
+
+            .forgot-password {
+                font-size: 0.8rem;
+            }
+
+            #verification-message, #invalid-message {
+                font-size: 0.8rem;
+            }
+
+            #forgotForm #sendVerificationButton {
+                padding: 0.9rem;
+                font-size: 0.9rem;
+            }
         }
 
+        /* Further adjustments for very small mobile screens */
+        @media (max-width: 480px) {
+            html {
+                font-size: 13px; /* Even smaller base font */
+            }
+
+            .welcome-title {
+                font-size: 1.05rem;
+            }
+
+            .logo-text {
+                font-size: 0.75rem;
+            }
+
+            .logo h1 {
+                font-size: 1.6rem;
+            }
+
+            form h2 {
+                font-size: 1.05rem;
+            }
+
+            input {
+                font-size: 0.75rem;
+            }
+
+            button {
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -381,7 +527,7 @@
             <div class="logo-text">Be part of a thriving network of skilled image annotators.</div>
         </div>
     </div>
-    
+
     <div class="right-section">
         <div class="container">
             <div class="logo">
@@ -399,16 +545,16 @@
                     <button type="submit">Login</button>
                     <a href="javascript:void(0);" class="forgot-password" id="forgot-password-link">Forgot Password?</a>
                 </form>
-    
+
                 <form id="forgotForm" class="inactive">
                     <h2>Forgot Password</h2>
                     <input type="email" id="forgotEmail" placeholder="Email" required>
                     <div id="verification-message">Verification Sent.</div>
                     <div id="invalid-message">Invalid Email.</div>
                     <button type="submit" id="sendVerificationButton">Submit</button>
-                    <button type="button" class="sign-in-btn" id="backToLoginBtn">Sign In</button> <!-- Sign In button -->
+                    <button type="button" class="sign-in-btn" id="backToLoginBtn">Sign In</button>
                 </form>
-    
+
                 <form id="registerForm">
                     <h2>Register</h2>
                     <input type="email" id="registerEmail" placeholder="Email" required>
@@ -429,7 +575,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 
     <script>
         const loginForm = document.getElementById('loginForm');
@@ -452,11 +598,11 @@
         const forgotPasswordLink = document.getElementById('forgot-password-link');
         const sendVerificationButton = document.getElementById('sendVerificationButton');
         const backToLoginBtn = document.getElementById('backToLoginBtn');
-    
+
         // Admin credentials
         const adminEmail = "admin@digitasks.com";
         const adminPassword = "Breaking99//";
-    
+
         // Toggle between login and register forms
         showLoginForm.addEventListener('click', () => {
             loginForm.classList.add('active');
@@ -464,14 +610,14 @@
             forgotForm.classList.remove('active');
             formContainer.classList.remove('expand');
         });
-    
+
         showRegisterForm.addEventListener('click', () => {
             registerForm.classList.add('active');
             loginForm.classList.remove('active');
             forgotForm.classList.remove('active');
             formContainer.classList.add('expand');
         });
-    
+
         // Forgot password link actions
         forgotPasswordLink.addEventListener('click', () => {
             loginForm.classList.remove('active');
@@ -479,14 +625,14 @@
             forgotForm.classList.add('active');
             formContainer.classList.add('expand');
         });
-    
+
         backToLoginBtn.addEventListener('click', () => {
             forgotForm.classList.remove('active');
             loginForm.classList.add('active');
             registerForm.classList.remove('active');
             formContainer.classList.remove('expand');
         });
-    
+
         // Show/hide password functionality
         const togglePasswordVisibility = (input, toggleButton) => {
             toggleButton.addEventListener('click', () => {
@@ -494,11 +640,11 @@
                 input.type = type;
             });
         };
-    
+
         togglePasswordVisibility(loginPasswordInput, toggleLoginPassword);
         togglePasswordVisibility(registerPasswordInput, toggleRegisterPassword);
         togglePasswordVisibility(confirmPasswordInput, toggleConfirmPassword);
-    
+
         // Show login error message
         function showLoginErrorMessage() {
             loginErrorMessage.style.display = 'block'; // Make it visible
@@ -554,27 +700,27 @@
         // Handle registration
         registerForm.addEventListener('submit', (e) => {
             e.preventDefault();
-    
+
             if (registerPasswordInput.value !== confirmPasswordInput.value) {
                 showRegisterErrorMessage();
             } else {
                 registerErrorMessage.style.display = 'none';
                 registerForm.reset();
-    
+
                 // Switch to login form after registration
                 registerForm.classList.remove('active');
                 loginForm.classList.add('active');
                 formContainer.classList.remove('expand');
             }
         });
-    
+
         // Clear register error message on interaction
         document.querySelectorAll('#registerForm input').forEach(input => {
             input.addEventListener('input', () => {
                 hideregisterErrorMessage();
             });
         });
-        
+
          // Handle forgot password verification
         sendVerificationButton.addEventListener('click', (e) => {
         e.preventDefault();
@@ -586,7 +732,7 @@
             invalidMessage.classList.add('active'); // Show the invalid message
             setTimeout(() => {
             invalidMessage.classList.remove('active'); // Hide the invalid message after 3 seconds
-        }, 3000); 
+        }, 3000);
             return; // Stop the function if the email is invalid
         } else {
             invalidMessage.classList.remove('active'); // Hide the invalid message if the email is valid
@@ -600,8 +746,7 @@
         }, 3000);
     });
 
-    </script>    
-
     </script>
 </body>
 </html>
+```
